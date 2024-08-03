@@ -4,9 +4,9 @@ package com.prajj.Springboot.tutorial.controller;
 import com.prajj.Springboot.tutorial.entity.Department;
 import com.prajj.Springboot.tutorial.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class DepartmentController {
@@ -18,6 +18,22 @@ public class DepartmentController {
     @PostMapping("/departments")
     public Department saveDepartment(@RequestBody Department department){
         return departmentService.saveDepartment(department);
+    }
+
+    @GetMapping("/departments")
+    public List<Department> fetchDepartmentList(){
+        return departmentService.fetchDepartmentList();
+    }
+
+    @GetMapping("/departments/{id}")
+    public Department fetchDepartmentById(@PathVariable("id") Long departmentId){
+        return departmentService.fetchDepartmentById(departmentId);
+    }
+
+    @DeleteMapping("/departments/{id}")
+    public String deleteDepartmentById(@PathVariable("id") Long departmentId){
+        departmentService.deleteDepartmentById(departmentId);
+        return "Department deleted Successfully!!";
     }
 
 }
